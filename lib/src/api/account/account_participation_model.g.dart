@@ -11,9 +11,9 @@ AccountParticipation _$AccountParticipationFromJson(
     AccountParticipation(
       selectionParticipationKey: json['selection-participation-key'] as String?,
       stateProofKey: json['state-proof-key'] as String?,
-      voteFirstValid: json['vote-first-valid'] as int? ?? 0,
-      voteKeyDilution: json['vote-key-dilution'] as int? ?? 0,
-      voteLastValid: json['vote-last-valid'] as int? ?? 0,
+      voteFirstValid: (json['vote-first-valid'] as num?)?.toInt() ?? 0,
+      voteKeyDilution: (json['vote-key-dilution'] as num?)?.toInt() ?? 0,
+      voteLastValid: (json['vote-last-valid'] as num?)?.toInt() ?? 0,
       voteParticipationKey: json['vote-participation-key'] as String?,
     );
 

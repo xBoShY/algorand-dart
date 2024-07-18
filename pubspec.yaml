@@ -4,16 +4,17 @@ version: 2.0.0-dev.14
 homepage: https://www.algorand.com
 repository: https://github.com/RootSoft/algorand-dart
 issue_tracker: https://github.com/RootSoft/algorand-dart/issues
+publish_to: none
 
 environment:
-  sdk: '>=2.17.0 <3.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   # Ed25519
-  cryptography: ^2.5.0
+  cryptography: ^2.7.0
 
   # SHA512/256
-  crypto: ^3.0.2
+  crypto: ^3.0.3
 
   # Base32
   base32: ^2.1.3
@@ -22,38 +23,41 @@ dependencies:
   convert: ^3.1.1
 
   # Easily work with bytes
-  buffer: ^1.2.0
+  buffer: ^1.2.3
 
   # Equatable
   equatable: ^2.0.5
 
   # JSON Annotation
-  json_annotation: ^4.8.0
+  json_annotation: ^4.9.0
 
   # Equality
-  collection: ^1.17.0
+  collection: ^1.19.0
 
   # HTTP & REST
-  dio: ^4.0.6
-  retrofit: ^3.3.1
+  dio: ^5.5.0+1
+  retrofit: ^4.1.0
 
   # Messagepack
   algorand_msgpack: ^1.0.1
 
-  algorand_json: ^0.0.1
+  algorand_json:
+    git:
+      url: https://github.com/xboshy/algorand-json.git
+      ref: dev
 
 dev_dependencies:
   # Testing framework
-  test: ^1.23.1
+  test: ^1.25.8
 
   # Build Runner & Source Generation
-  build_runner: '>2.3.0 <4.0.0'
+  build_runner: ">=2.4.11 <4.0.0"
 
   # Linter
-  pedantic: ^1.11.0
+  lints: ^4.0.0
 
   # JSON Serialization
-  json_serializable: ^6.6.1
+  json_serializable: ^6.8.0
 
   # Retrofit
-  retrofit_generator: ^4.2.0
+  retrofit_generator: ^8.1.2

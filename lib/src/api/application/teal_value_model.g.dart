@@ -8,7 +8,7 @@ part of 'teal_value_model.dart';
 
 TealValue _$TealValueFromJson(Map<String, dynamic> json) => TealValue(
       bytes: json['bytes'] as String,
-      type: json['type'] as int,
+      type: (json['type'] as num).toInt(),
       uint: const BigIntSerializer().fromJson(json['uint']),
     );
 

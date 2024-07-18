@@ -41,7 +41,7 @@ DryRunTxResult _$DryRunTxResultFromJson(Map<String, dynamic> json) =>
       logs:
           (json['logs'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               [],
-      cost: json['cost'] as int?,
+      cost: (json['cost'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$DryRunTxResultToJson(DryRunTxResult instance) =>

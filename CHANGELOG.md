@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.0.0-dev.15-xboshy - 2024-07-18
+
+- Updated dependencies
+- \[WIP\] Added support for TEAL v10
+
 ## 2.0.0-dev.14 - 2023-04-26
 
 - State proof key

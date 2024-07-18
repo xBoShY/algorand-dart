@@ -10,7 +10,7 @@ AssetConfigParameters _$AssetConfigParametersFromJson(
         Map<String, dynamic> json) =>
     AssetConfigParameters(
       total: const NullableBigIntSerializer().fromJson(json['t']),
-      decimals: json['dc'] as int? ?? 0,
+      decimals: (json['dc'] as num?)?.toInt() ?? 0,
       defaultFrozen: json['df'] as bool?,
       unitName: json['un'] as String?,
       assetName: json['an'] as String?,

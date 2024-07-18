@@ -9,7 +9,7 @@ part of 'payment_model.dart';
 Payment _$PaymentFromJson(Map<String, dynamic> json) => Payment(
       receiver: json['receiver'] as String,
       amount: const BigIntSerializer().fromJson(json['amount']),
-      closeAmount: json['close-amount'] as int?,
+      closeAmount: (json['close-amount'] as num?)?.toInt(),
       closeRemainderTo: json['close-remainder-to'] as String?,
     );
 

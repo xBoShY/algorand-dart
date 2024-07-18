@@ -12,7 +12,7 @@ PendingTransactionsResponse _$PendingTransactionsResponseFromJson(
       transactions: (json['top-transactions'] as List<dynamic>)
           .map((e) => SignedTransaction.fromJson(e as Map<String, dynamic>))
           .toList(),
-      totalTransactions: json['total-transactions'] as int,
+      totalTransactions: (json['total-transactions'] as num).toInt(),
     );
 
 Map<String, dynamic> _$PendingTransactionsResponseToJson(

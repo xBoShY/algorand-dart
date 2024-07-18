@@ -8,7 +8,7 @@ part of 'transaction_lookup_response.dart';
 
 TransactionResponse _$TransactionResponseFromJson(Map<String, dynamic> json) =>
     TransactionResponse(
-      currentRound: json['current-round'] as int,
+      currentRound: (json['current-round'] as num).toInt(),
       transaction:
           Transaction.fromJson(json['transaction'] as Map<String, dynamic>),
     );

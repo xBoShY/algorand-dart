@@ -4,7 +4,6 @@ void main() async {
   final privateKey =
       'ef3cf725a3b4eb3067e2b468eec172ff4ef9333460b811cd04cdd877306500a6';
   final account = await Account.fromPrivateKey(privateKey);
-  final assetId = 154661774;
   print(account.publicAddress);
 
   final options = AlgorandOptions(

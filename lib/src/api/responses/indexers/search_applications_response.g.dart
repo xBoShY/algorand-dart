@@ -13,7 +13,7 @@ SearchApplicationsResponse _$SearchApplicationsResponseFromJson(
               ?.map((e) => Application.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      currentRound: json['current-round'] as int,
+      currentRound: (json['current-round'] as num).toInt(),
       nextToken: json['next-token'] as String?,
     );
 

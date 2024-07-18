@@ -5,34 +5,35 @@ import 'package:dio/dio.dart';
 class AlgorandException implements Exception {
   final int errorCode;
   final int? statusCode;
-  final String _message;
+  final String? _message;
   final Object? cause;
 
   AlgorandException({
     this.errorCode = 0,
-    String message = '',
+    String? message,
     this.statusCode,
     this.cause,
   }) : _message = message;
 
-  factory AlgorandException.fromDioError(DioError error) {
+  factory AlgorandException.fromDioException(DioException exception) {
     return AlgorandException(
-      statusCode: error.response?.statusCode,
-      message: error.message,
-      cause: error,
+      statusCode: exception.response?.statusCode,
+      message: exception.message,
+      cause: exception,
     );
   }
 
   String get message {
     final cause = this.cause;
-    if (cause is! DioError) {
-      return _message;
+    if (cause is! DioException) {
+      return _message ?? '';
     }
 
-    final message = cause.response?.data?['message'];
+    final dioCause = cause;
+    final message = dioCause.response?.data?['message'];
 
     if (message is! String) {
-      return _message;
+      return _message ?? '';
     }
 
     return message;

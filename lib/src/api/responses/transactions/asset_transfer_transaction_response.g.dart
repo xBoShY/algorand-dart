@@ -10,7 +10,7 @@ AssetTransferTransactionResponse _$AssetTransferTransactionResponseFromJson(
         Map<String, dynamic> json) =>
     AssetTransferTransactionResponse(
       amount: const BigIntSerializer().fromJson(json['amount']),
-      assetId: json['asset-id'] as int? ?? 0,
+      assetId: (json['asset-id'] as num?)?.toInt() ?? 0,
       receiver: json['receiver'] as String,
       closeAmount:
           const NullableBigIntSerializer().fromJson(json['close-amount']),

@@ -9,7 +9,7 @@ part of 'search_assets_response.dart';
 SearchAssetsResponse _$SearchAssetsResponseFromJson(
         Map<String, dynamic> json) =>
     SearchAssetsResponse(
-      currentRound: json['current-round'] as int,
+      currentRound: (json['current-round'] as num).toInt(),
       nextToken: json['next-token'] as String?,
       assets: (json['assets'] as List<dynamic>)
           .map((e) => Asset.fromJson(e as Map<String, dynamic>))

@@ -35,20 +35,20 @@ AccountInformation _$AccountInformationFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Asset.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      totalAppsOptedIn: json['total-apps-opted-in'] as int? ?? 0,
-      totalAssetsOptedIn: json['total-assets-opted-in'] as int? ?? 0,
-      totalBoxBytes: json['total-box-bytes'] as int?,
-      totalBoxes: json['total-boxes'] as int?,
-      totalCreatedApps: json['total-created-apps'] as int? ?? 0,
-      totalCreatedAssets: json['total-created-assets'] as int? ?? 0,
-      createdAtRound: json['created-at-round'] as int?,
+      totalAppsOptedIn: (json['total-apps-opted-in'] as num?)?.toInt() ?? 0,
+      totalAssetsOptedIn: (json['total-assets-opted-in'] as num?)?.toInt() ?? 0,
+      totalBoxBytes: (json['total-box-bytes'] as num?)?.toInt(),
+      totalBoxes: (json['total-boxes'] as num?)?.toInt(),
+      totalCreatedApps: (json['total-created-apps'] as num?)?.toInt() ?? 0,
+      totalCreatedAssets: (json['total-created-assets'] as num?)?.toInt() ?? 0,
+      createdAtRound: (json['created-at-round'] as num?)?.toInt(),
       participation: json['participation'] == null
           ? null
           : AccountParticipation.fromJson(
               json['participation'] as Map<String, dynamic>),
       rewardBase:
           const NullableBigIntSerializer().fromJson(json['reward-base']),
-      closedAtRound: json['closed-at-round'] as int?,
+      closedAtRound: (json['closed-at-round'] as num?)?.toInt(),
       signatureType:
           $enumDecodeNullable(_$SignatureTypeEnumMap, json['sig-type']),
       authAddress: json['auth-addr'] as String?,
@@ -58,7 +58,7 @@ AccountInformation _$AccountInformationFromJson(Map<String, dynamic> json) =>
               json['apps-total-schema'] as Map<String, dynamic>),
       minimumBalance:
           const NullableBigIntSerializer().fromJson(json['min-balance']),
-      appsTotalExtraPages: json['apps-total-extra-pages'] as int?,
+      appsTotalExtraPages: (json['apps-total-extra-pages'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$AccountInformationToJson(AccountInformation instance) =>

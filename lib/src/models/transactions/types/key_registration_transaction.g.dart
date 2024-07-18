@@ -13,9 +13,9 @@ KeyRegistrationTransaction _$KeyRegistrationTransactionFromJson(
       selectionPK: const VRFKeySerializer().fromJson(json['selkey']),
       stateProofPublicKey:
           const MerkleSignatureSerializer().fromJson(json['sprfkey']),
-      voteFirst: json['votefst'] as int?,
-      voteLast: json['votelst'] as int?,
-      voteKeyDilution: json['votekd'] as int?,
+      voteFirst: (json['votefst'] as num?)?.toInt(),
+      voteLast: (json['votelst'] as num?)?.toInt(),
+      voteKeyDilution: (json['votekd'] as num?)?.toInt(),
       fee: const NullableBigIntSerializer().fromJson(json['fee']),
       firstValid: const NullableBigIntSerializer().fromJson(json['fv']),
       genesisHash: const NullableByteArraySerializer().fromJson(json['gh']),

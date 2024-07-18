@@ -6,7 +6,7 @@ part of 'application_indexer_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _ApplicationIndexerService implements ApplicationIndexerService {
   _ApplicationIndexerService(
@@ -20,16 +20,16 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
 
   @override
   Future<ApplicationsResponse> getApplicationsByAccount({
-    required address,
-    applicationId,
-    includeAll,
-    limit,
-    next,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required String address,
+    int? applicationId,
+    bool? includeAll,
+    int? limit,
+    String? next,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'application-id': applicationId,
       r'include-all': includeAll,
@@ -38,7 +38,7 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApplicationsResponse>(Options(
       method: 'GET',
@@ -54,24 +54,28 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApplicationsResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ApplicationsResponse.fromJson(_result.data!);
+    return _value;
   }
 
   @override
   Future<ApplicationResponse> getApplicationById({
-    required applicationId,
-    includeAll,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required int applicationId,
+    bool? includeAll,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'include-all': includeAll};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApplicationResponse>(Options(
       method: 'GET',
@@ -87,25 +91,29 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApplicationResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ApplicationResponse.fromJson(_result.data!);
+    return _value;
   }
 
   @override
   Future<ApplicationLogsResponse> getApplicationLogsById({
-    required applicationId,
-    limit,
-    maxRound,
-    minRound,
-    next,
-    senderAddress,
-    transactionId,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required int applicationId,
+    int? limit,
+    int? maxRound,
+    int? minRound,
+    String? next,
+    String? senderAddress,
+    String? transactionId,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'limit': limit,
       r'max-round': maxRound,
@@ -116,7 +124,7 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<ApplicationLogsResponse>(Options(
       method: 'GET',
@@ -132,9 +140,13 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = ApplicationLogsResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = ApplicationLogsResponse.fromJson(_result.data!);
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
@@ -148,5 +160,22 @@ class _ApplicationIndexerService implements ApplicationIndexerService {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

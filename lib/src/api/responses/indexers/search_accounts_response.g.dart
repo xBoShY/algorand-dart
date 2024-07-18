@@ -9,7 +9,7 @@ part of 'search_accounts_response.dart';
 SearchAccountsResponse _$SearchAccountsResponseFromJson(
         Map<String, dynamic> json) =>
     SearchAccountsResponse(
-      currentRound: json['current-round'] as int,
+      currentRound: (json['current-round'] as num).toInt(),
       nextToken: json['next-token'] as String?,
       accounts: (json['accounts'] as List<dynamic>?)
               ?.map(

@@ -17,9 +17,9 @@ DryRunRequest _$DryRunRequestFromJson(Map<String, dynamic> json) =>
               ?.map((e) => Application.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
-      latestTimestamp: json['latest-timestamp'] as int?,
+      latestTimestamp: (json['latest-timestamp'] as num?)?.toInt(),
       protocolVersion: json['protocol-version'] as String?,
-      round: json['round'] as int?,
+      round: (json['round'] as num?)?.toInt(),
       sources: (json['sources'] as List<dynamic>?)
               ?.map((e) => DryRunSource.fromJson(e as Map<String, dynamic>))
               .toList() ??

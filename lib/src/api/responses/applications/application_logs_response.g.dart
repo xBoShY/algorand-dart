@@ -14,8 +14,8 @@ ApplicationLogsResponse _$ApplicationLogsResponseFromJson(
                   (e) => ApplicationLogData.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      applicationId: json['application-id'] as int?,
-      currentRound: json['current-round'] as int?,
+      applicationId: (json['application-id'] as num?)?.toInt(),
+      currentRound: (json['current-round'] as num?)?.toInt(),
       nextToken: json['next-token'] as String?,
     );
 

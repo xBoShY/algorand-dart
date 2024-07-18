@@ -9,7 +9,7 @@ part of 'asset_config_transaction.dart';
 AssetConfigTransaction _$AssetConfigTransactionFromJson(
         Map<String, dynamic> json) =>
     AssetConfigTransaction(
-      assetId: json['caid'] as int?,
+      assetId: (json['caid'] as num?)?.toInt(),
       params: json['apar'] == null
           ? null
           : AssetConfigParameters.fromJson(

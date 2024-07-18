@@ -7,11 +7,11 @@ part of 'asset_model.dart';
 // **************************************************************************
 
 Asset _$AssetFromJson(Map<String, dynamic> json) => Asset(
-      index: json['index'] as int,
+      index: (json['index'] as num).toInt(),
       params: AssetParameters.fromJson(json['params'] as Map<String, dynamic>),
-      createdAtRound: json['created-at-round'] as int?,
+      createdAtRound: (json['created-at-round'] as num?)?.toInt(),
       deleted: json['deleted'] as bool?,
-      destroyedAtRound: json['destroyed-at-round'] as int?,
+      destroyedAtRound: (json['destroyed-at-round'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$AssetToJson(Asset instance) => <String, dynamic>{

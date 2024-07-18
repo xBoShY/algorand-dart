@@ -10,7 +10,7 @@ AssetFreezeTransactionResponse _$AssetFreezeTransactionResponseFromJson(
         Map<String, dynamic> json) =>
     AssetFreezeTransactionResponse(
       address: json['address'] as String? ?? '',
-      assetId: json['asset-id'] as int? ?? 0,
+      assetId: (json['asset-id'] as num?)?.toInt() ?? 0,
       newFreezeStatus: json['new-freeze-status'] as bool? ?? false,
     );
 

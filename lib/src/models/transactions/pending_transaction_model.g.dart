@@ -29,14 +29,14 @@ PendingTransaction _$PendingTransactionFromJson(Map<String, dynamic> json) =>
       logs:
           (json['logs'] as List<dynamic>?)?.map((e) => e as String).toList() ??
               [],
-      applicationIndex: json['application-index'] as int?,
-      assetIndex: json['asset-index'] as int?,
-      closeRewards: json['close-rewards'] as int?,
-      closingAmount: json['closing-amount'] as int?,
-      confirmedRound: json['confirmed-round'] as int?,
-      receiverRewards: json['receiver-rewards'] as int?,
-      senderRewards: json['sender-rewards'] as int?,
-      assetClosingAmount: json['asset-closing-amount'] as int?,
+      applicationIndex: (json['application-index'] as num?)?.toInt(),
+      assetIndex: (json['asset-index'] as num?)?.toInt(),
+      closeRewards: (json['close-rewards'] as num?)?.toInt(),
+      closingAmount: (json['closing-amount'] as num?)?.toInt(),
+      confirmedRound: (json['confirmed-round'] as num?)?.toInt(),
+      receiverRewards: (json['receiver-rewards'] as num?)?.toInt(),
+      senderRewards: (json['sender-rewards'] as num?)?.toInt(),
+      assetClosingAmount: (json['asset-closing-amount'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$PendingTransactionToJson(PendingTransaction instance) =>

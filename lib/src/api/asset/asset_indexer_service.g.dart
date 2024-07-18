@@ -6,7 +6,7 @@ part of 'asset_indexer_service.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers
+// ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
 class _AssetIndexerService implements AssetIndexerService {
   _AssetIndexerService(
@@ -20,17 +20,17 @@ class _AssetIndexerService implements AssetIndexerService {
 
   @override
   Future<AssetResponse> getAssetById({
-    required assetId,
-    includeAll,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required int assetId,
+    bool? includeAll,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'include-all': includeAll};
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<AssetResponse>(Options(
       method: 'GET',
@@ -46,23 +46,27 @@ class _AssetIndexerService implements AssetIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AssetResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = AssetResponse.fromJson(_result.data!);
+    return _value;
   }
 
   @override
   Future<AssetsResponse> getAssetsByAccount({
-    required address,
-    assetId,
-    includeAll,
-    limit,
-    next,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required String address,
+    int? assetId,
+    bool? includeAll,
+    int? limit,
+    String? next,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'asset-id': assetId,
       r'include-all': includeAll,
@@ -71,7 +75,7 @@ class _AssetIndexerService implements AssetIndexerService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<AssetsResponse>(Options(
       method: 'GET',
@@ -87,23 +91,27 @@ class _AssetIndexerService implements AssetIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AssetsResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = AssetsResponse.fromJson(_result.data!);
+    return _value;
   }
 
   @override
   Future<CreatedAssetsResponse> getCreatedAssetsByAccount({
-    required address,
-    assetId,
-    includeAll,
-    limit,
-    next,
-    cancelToken,
-    onSendProgress,
-    onReceiveProgress,
+    required String address,
+    int? assetId,
+    bool? includeAll,
+    int? limit,
+    String? next,
+    CancelToken? cancelToken,
+    void Function(int, int)? onSendProgress,
+    void Function(int, int)? onReceiveProgress,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'asset-id': assetId,
       r'include-all': includeAll,
@@ -112,7 +120,7 @@ class _AssetIndexerService implements AssetIndexerService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
         _setStreamType<CreatedAssetsResponse>(Options(
       method: 'GET',
@@ -128,9 +136,13 @@ class _AssetIndexerService implements AssetIndexerService {
               onSendProgress: onSendProgress,
               onReceiveProgress: onReceiveProgress,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = CreatedAssetsResponse.fromJson(_result.data!);
-    return value;
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final _value = CreatedAssetsResponse.fromJson(_result.data!);
+    return _value;
   }
 
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
@@ -144,5 +156,22 @@ class _AssetIndexerService implements AssetIndexerService {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

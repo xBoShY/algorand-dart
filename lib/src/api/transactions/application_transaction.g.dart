@@ -15,17 +15,21 @@ ApplicationTransaction _$ApplicationTransactionFromJson(
       localStateSchema: json['apls'] == null
           ? null
           : StateSchema.fromJson(json['apls'] as Map<String, dynamic>),
-      extraPages: json['apep'] as int?,
+      extraPages: (json['apep'] as num?)?.toInt(),
       approvalProgram: const TealProgramConverter().fromJson(json['apap']),
       clearStateProgram: const TealProgramConverter().fromJson(json['apsu']),
-      applicationId: json['apid'] as int? ?? 0,
+      applicationId: (json['apid'] as num?)?.toInt() ?? 0,
       onCompletion: const OnCompletionConverter().fromJson(json['apan']),
       arguments: const ListByteArraySerializer().fromJson(json['apaa']),
       accounts: const ListByteArraySerializer().fromJson(json['apat']),
-      foreignApps:
-          (json['apfa'] as List<dynamic>?)?.map((e) => e as int).toList() ?? [],
-      foreignAssets:
-          (json['apas'] as List<dynamic>?)?.map((e) => e as int).toList() ?? [],
+      foreignApps: (json['apfa'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          [],
+      foreignAssets: (json['apas'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          [],
       boxes: (json['apbx'] as List<dynamic>?)
               ?.map((e) => BoxReference.fromJson(e as Map<String, dynamic>))
               .toList() ??

@@ -16,12 +16,12 @@ Block _$BlockFromJson(Map<String, dynamic> json) => Block(
       previousBlockHash: json['previous-block-hash'] as String?,
       round: const NullableBigIntSerializer().fromJson(json['round']),
       seed: json['seed'] as String?,
-      timestamp: json['timestamp'] as int?,
+      timestamp: (json['timestamp'] as num?)?.toInt(),
       transactionsRoot: json['transactions-root'] as String?,
       rewards: json['rewards'] == null
           ? null
           : BlockRewards.fromJson(json['rewards'] as Map<String, dynamic>),
-      txnCounter: json['txn-counter'] as int?,
+      txnCounter: (json['txn-counter'] as num?)?.toInt(),
       upgradeState: json['upgrade-state'] == null
           ? null
           : BlockUpgradeState.fromJson(

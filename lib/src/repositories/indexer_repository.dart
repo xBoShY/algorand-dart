@@ -29,7 +29,7 @@ class IndexerRepository {
   Future<IndexerHealth> health() async {
     try {
       return await indexerService.health();
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }
@@ -71,7 +71,7 @@ class IndexerRepository {
       }
 
       return await indexerService.searchTransactions(queryParams);
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }
@@ -85,7 +85,7 @@ class IndexerRepository {
   ) async {
     try {
       return await assetService.searchAssets(queryParams);
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }
@@ -111,7 +111,7 @@ class IndexerRepository {
       }
 
       return await accountService.searchAccounts(queryParams);
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }
@@ -125,7 +125,7 @@ class IndexerRepository {
   ) async {
     try {
       return await applicationService.searchApplications(queryParams);
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }
@@ -137,7 +137,7 @@ class IndexerRepository {
   Future<TransactionResponse> getTransactionById(String transactionId) async {
     try {
       return await indexerService.getTransactionById(transactionId);
-    } on DioError catch (ex) {
+    } on DioException catch (ex) {
       throw AlgorandException(message: ex.message, cause: ex);
     }
   }

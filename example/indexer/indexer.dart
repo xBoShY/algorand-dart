@@ -93,7 +93,7 @@ Future findAssetMinBalances({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -109,7 +109,7 @@ Future findAssetBalances({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -129,7 +129,7 @@ Future findAssetsBalanceMinBalance({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -143,7 +143,7 @@ Future getBlockInfo({
     final response = await algorand.getBlockByRound(BigInt.from(16280357));
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -157,7 +157,7 @@ Future findApplication({
     final response = await algorand.indexer().getApplicationById(15974179);
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -171,7 +171,7 @@ Future searchApplications({
     final response = await algorand.indexer().applications().search(limit: 4);
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -185,7 +185,7 @@ Future searchAssets({
     final response = await algorand.indexer().assets().search(limit: 4);
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -201,7 +201,7 @@ Future searchAssetsByName({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -225,7 +225,7 @@ Future searchAssetsTransactionsRole({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -243,7 +243,7 @@ Future searchTransactions({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -263,7 +263,7 @@ Future searchTransactionsWithNote({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -294,7 +294,7 @@ Future searchTransactionsPaging({
       }
       print(response.toJson());
     } on AlgorandException catch (ex) {
-      final error = ex.cause as DioError;
+      final error = ex.cause as DioException;
       print(error.response?.toString());
     }
   }
@@ -320,7 +320,7 @@ Future searchTxAddressAsset({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -343,7 +343,7 @@ Future searchTxAddressBlock({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -366,7 +366,7 @@ Future searchTxAddressTime({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }
@@ -384,7 +384,7 @@ Future searchTransactionWithType({
 
     print(response.toJson());
   } on AlgorandException catch (ex) {
-    final error = ex.cause as DioError;
+    final error = ex.cause as DioException;
     print(error.response?.toString());
   }
 }

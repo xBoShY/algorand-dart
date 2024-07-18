@@ -16,8 +16,8 @@ AlgodBlock _$AlgodBlockFromJson(Map<String, dynamic> json) => AlgodBlock(
       previousBlockHash: const ByteArrayToB64Converter().fromJson(json['prev']),
       round: const NullableBigIntSerializer().fromJson(json['rnd']),
       seed: const ByteArrayToB64Converter().fromJson(json['seed']),
-      timestamp: json['ts'] as int?,
-      txnCounter: json['tc'] as int?,
+      timestamp: (json['ts'] as num?)?.toInt(),
+      txnCounter: (json['tc'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$AlgodBlockToJson(AlgodBlock instance) =>

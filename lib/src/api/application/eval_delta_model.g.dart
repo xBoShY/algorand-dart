@@ -7,7 +7,7 @@ part of 'eval_delta_model.dart';
 // **************************************************************************
 
 EvalDelta _$EvalDeltaFromJson(Map<String, dynamic> json) => EvalDelta(
-      action: json['action'] as int? ?? 0,
+      action: (json['action'] as num?)?.toInt() ?? 0,
       bytes: json['bytes'] as String?,
       uint: const NullableBigIntSerializer().fromJson(json['uint']),
     );

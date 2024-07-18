@@ -9,16 +9,16 @@ part of 'application_local_state_model.dart';
 ApplicationLocalState _$ApplicationLocalStateFromJson(
         Map<String, dynamic> json) =>
     ApplicationLocalState(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       schema: ApplicationStateSchema.fromJson(
           json['schema'] as Map<String, dynamic>),
       keyValue: (json['key-value'] as List<dynamic>?)
               ?.map((e) => TealKeyValue.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      closedOutAtRound: json['closed-out-at-round'] as int?,
+      closedOutAtRound: (json['closed-out-at-round'] as num?)?.toInt(),
       deleted: json['deleted'] as bool?,
-      optedInAtRound: json['opted-in-at-round'] as int?,
+      optedInAtRound: (json['opted-in-at-round'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$ApplicationLocalStateToJson(

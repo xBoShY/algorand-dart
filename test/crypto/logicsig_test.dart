@@ -22,7 +22,9 @@ void main() {
   });
 
   test('Test logicsig invalid program', () async {
-    final program = Uint8List.fromList(<int>[0x07, 0x20, 0x01, 0x01, 0x22]);
+    Logic.loadLangSpec();
+    var v = Logic.langSpec?.version ?? 0;
+    final program = Uint8List.fromList(<int>[v + 1, 0x20, 0x01, 0x01, 0x22]);
     expect(
       () => LogicSignature(logic: program),
       throwsA((e) => e is AlgorandException),

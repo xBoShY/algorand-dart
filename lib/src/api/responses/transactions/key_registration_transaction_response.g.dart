@@ -12,9 +12,9 @@ KeyRegistrationTransactionResponse _$KeyRegistrationTransactionResponseFromJson(
       nonParticipation: json['non-participation'] as bool?,
       selectionParticipationKey: json['selection-participation-key'] as String?,
       stateProofKey: json['state-proof-key'] as String?,
-      voteFirstValid: json['vote-first-valid'] as int?,
-      voteLastValid: json['vote-last-valid'] as int?,
-      voteKeyDilution: json['vote-key-dilution'] as int?,
+      voteFirstValid: (json['vote-first-valid'] as num?)?.toInt(),
+      voteLastValid: (json['vote-last-valid'] as num?)?.toInt(),
+      voteKeyDilution: (json['vote-key-dilution'] as num?)?.toInt(),
       voteParticipationKey: json['vote-participation-key'] as String?,
     );
 

@@ -9,7 +9,7 @@ part of 'asset_transfer_transaction.dart';
 AssetTransferTransaction _$AssetTransferTransactionFromJson(
         Map<String, dynamic> json) =>
     AssetTransferTransaction(
-      assetId: json['xaid'] as int?,
+      assetId: (json['xaid'] as num?)?.toInt(),
       amount: const NullableBigIntSerializer().fromJson(json['aamt']),
       assetSender: const AddressSerializer().fromJson(json['asnd']),
       receiver: const AddressSerializer().fromJson(json['arcv']),

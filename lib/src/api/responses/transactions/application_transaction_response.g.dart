@@ -9,7 +9,7 @@ part of 'application_transaction_response.dart';
 ApplicationTransactionResponse _$ApplicationTransactionResponseFromJson(
         Map<String, dynamic> json) =>
     ApplicationTransactionResponse(
-      applicationId: json['application-id'] as int,
+      applicationId: (json['application-id'] as num).toInt(),
       onCompletion: $enumDecode(_$OnCompletionEnumMap, json['on-completion'],
           unknownValue: OnCompletion.NO_OP_OC),
       accounts: (json['accounts'] as List<dynamic>?)
@@ -21,14 +21,14 @@ ApplicationTransactionResponse _$ApplicationTransactionResponseFromJson(
               .toList() ??
           [],
       foreignApps: (json['foreign-apps'] as List<dynamic>?)
-              ?.map((e) => e as int)
+              ?.map((e) => (e as num).toInt())
               .toList() ??
           [],
       foreignAssets: (json['foreign-assets'] as List<dynamic>?)
-              ?.map((e) => e as int)
+              ?.map((e) => (e as num).toInt())
               .toList() ??
           [],
-      extraProgramPages: json['extra-program-pages'] as int? ?? 0,
+      extraProgramPages: (json['extra-program-pages'] as num?)?.toInt() ?? 0,
       approvalProgram: json['approval-program'] as String?,
       clearStateProgram: json['clear-state-program'] as String?,
       globalStateSchema: json['global-state-schema'] == null

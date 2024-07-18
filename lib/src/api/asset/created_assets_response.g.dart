@@ -13,7 +13,7 @@ CreatedAssetsResponse _$CreatedAssetsResponseFromJson(
               ?.map((e) => Asset.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      currentRound: json['current-round'] as int? ?? 0,
+      currentRound: (json['current-round'] as num?)?.toInt() ?? 0,
       nextToken: json['next-token'] as String?,
     );
 

@@ -43,7 +43,7 @@ class Logic {
       throw AlgorandException(message: 'Version parsing error');
     }
 
-    if (version > langSpec!.evalMaxVersion) {
+    if (version > langSpec!.version) {
       throw AlgorandException(message: 'Unsupported version');
     }
 
@@ -71,7 +71,7 @@ class Logic {
         throw AlgorandException(message: 'invalid instruction: $opcode');
       }
 
-      cost += op.cost;
+      cost += op.opCost.cost;
       var size = op.size;
       if (size == 0) {
         switch (op.opCode) {
@@ -119,7 +119,7 @@ class Logic {
     }
 
     // Clean up the JSON
-    final json = LANG_SPEC.replaceAll('\n', '\\n');
+    final json = LANG_SPEC; //.replaceAll('\\"', '\\\\\"');
 
     final data = jsonDecode(json) as Map<String, dynamic>;
     langSpec = LangSpec.fromJson(data);
@@ -131,7 +131,7 @@ class Logic {
       loadLangSpec();
     }
 
-    return langSpec?.evalMaxVersion ?? 0;
+    return langSpec?.version ?? 0;
   }
 
   /// Retrieves TEAL supported version
@@ -294,8 +294,8 @@ class Logic {
 
 @JsonSerializable()
 class LangSpec {
-  @JsonKey(name: 'EvalMaxVersion', defaultValue: 0)
-  final int evalMaxVersion;
+  @JsonKey(name: 'Version', defaultValue: 0)
+  final int version;
 
   @JsonKey(name: 'LogicSigVersion', defaultValue: 0)
   final int logicSigVersion;
@@ -304,7 +304,7 @@ class LangSpec {
   final List<Operation> operations;
 
   LangSpec({
-    required this.evalMaxVersion,
+    required this.version,
     required this.logicSigVersion,
     required this.operations,
   });
@@ -323,26 +323,30 @@ class Operation {
   @JsonKey(name: 'Name')
   final String name;
 
-  @JsonKey(name: 'Cost')
-  final int cost;
+  @JsonKey(
+    name: 'DocCost',
+    fromJson: _costFromDocCost,
+    toJson: _costToDocCost,
+  )
+  final OperationCost opCost;
 
   @JsonKey(name: 'Size')
   final int size;
 
-  @JsonKey(name: 'Returns')
-  final String? returns;
+  @JsonKey(name: 'Returns', defaultValue: [])
+  final List<String> returns;
 
   @JsonKey(name: 'ArgEnum', defaultValue: [])
   final List<String> argEnum;
 
   @JsonKey(name: 'ArgEnumTypes')
-  final String? argEnumTypes;
+  final List<String>? argEnumTypes;
 
   @JsonKey(name: 'Doc')
   final String? doc;
 
   @JsonKey(name: 'ImmediateNote')
-  final String? immediateNote;
+  final List<ImmediateNote>? immediateNote;
 
   @JsonKey(name: 'Group', defaultValue: [])
   final List<String> group;
@@ -350,7 +354,7 @@ class Operation {
   Operation({
     required this.opCode,
     required this.name,
-    required this.cost,
+    required this.opCost,
     required this.size,
     required this.returns,
     required this.argEnum,
@@ -364,6 +368,50 @@ class Operation {
       _$OperationFromJson(json);
 
   Map<String, dynamic> toJson() => _$OperationToJson(this);
+
+  static OperationCost _costFromDocCost(String docCost) =>
+      OperationCost.fromDocCost(docCost);
+  static String _costToDocCost(OperationCost cost) => cost.docCost;
+}
+
+class OperationCost {
+  final String docCost;
+  final int cost;
+
+  OperationCost(
+    this.docCost,
+    this.cost,
+  );
+
+  factory OperationCost.fromDocCost(String docCost) {
+    var cost = int.tryParse(docCost) ?? 0;
+    return OperationCost(docCost, cost);
+  }
+}
+
+@JsonSerializable()
+class ImmediateNote {
+  @JsonKey(name: 'Comment')
+  String? Comment;
+
+  @JsonKey(name: 'Encoding')
+  String? Encoding;
+
+  @JsonKey(name: 'Name')
+  String? Name;
+
+  @JsonKey(name: 'Reference')
+  String? Reference;
+
+  ImmediateNote(
+    this.Comment,
+    this.Encoding,
+    this.Name,
+    this.Reference,
+  );
+
+  factory ImmediateNote.fromJson(Map<String, dynamic> json) =>
+      _$ImmediateNoteFromJson(json);
 }
 
 class ProgramData {

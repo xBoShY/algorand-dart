@@ -7,7 +7,7 @@ part of 'network_info.dart';
 // **************************************************************************
 
 NetworkInfo _$NetworkInfoFromJson(Map<String, dynamic> json) => NetworkInfo(
-      applicationId: json['appID'] as int,
+      applicationId: (json['appID'] as num).toInt(),
     );
 
 Map<String, dynamic> _$NetworkInfoToJson(NetworkInfo instance) =>
