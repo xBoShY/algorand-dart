@@ -13,7 +13,7 @@ class _TransactionService implements TransactionService {
   Future<TransactionParams> getSuggestedTransactionParams() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/transactions/params',
       queryParameters: queryParameters,
@@ -53,7 +53,7 @@ class _TransactionService implements TransactionService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'max': max};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/accounts/$address/transactions/pending',
       queryParameters: queryParameters,
@@ -74,7 +74,7 @@ class _TransactionService implements TransactionService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'max': max};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/transactions/pending',
       queryParameters: queryParameters,
@@ -95,7 +95,7 @@ class _TransactionService implements TransactionService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/transactions/pending/$transactionId',
       queryParameters: queryParameters,

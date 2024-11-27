@@ -2,20 +2,24 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:algorand_dart/algorand_dart.dart';
-import 'package:json_annotation/json_annotation.dart';
-
-part 'logic.g.dart';
+import 'logic_opcodes.dart';
 
 class Logic {
+  static LangSpec? langSpec;
   static const MAX_COST = 20000;
   static const MAX_LENGTH = 1000;
 
-  static const INTCBLOCK_OPCODE = 32;
-  static const BYTECBLOCK_OPCODE = 38;
-  static const PUSHBYTES_OPCODE = 128;
-  static const PUSHINT_OPCODE = 129;
-
-  static LangSpec? langSpec;
+  static final OPCODES_SIZE_FUN = const <int,
+      (IntConstBlock?, ByteConstBlock?) Function(Uint8List program, int pc)>{
+    32: LogicOpcodes.intcblock_size,
+    38: LogicOpcodes.bytecblock_size,
+    128: LogicOpcodes.pushbytes_size,
+    129: LogicOpcodes.pushint_size,
+    130: LogicOpcodes.pushbytess_size,
+    131: LogicOpcodes.pushints_size,
+    141: LogicOpcodes.switch_size,
+    142: LogicOpcodes.match_size,
+  };
 
   /// Perform basic program validation; instruction count and program cost
   static bool checkProgram({
@@ -74,30 +78,16 @@ class Logic {
       cost += op.opCost.cost;
       var size = op.size;
       if (size == 0) {
-        switch (op.opCode) {
-          case INTCBLOCK_OPCODE:
-            final intsBlock = readIntConstBlock(program, pc);
-            size += intsBlock.size;
-            ints.addAll(intsBlock.results);
-            break;
-          case BYTECBLOCK_OPCODE:
-            final bytesBlock = readByteConstBlock(program, pc);
-            size += bytesBlock.size;
-            bytes.addAll(bytesBlock.results);
-            break;
-          case PUSHINT_OPCODE:
-            final pushInt = readPushIntOp(program, pc);
-            size += pushInt.size;
-            ints.addAll(pushInt.results);
-            break;
-          case PUSHBYTES_OPCODE:
-            final pushBytes = readPushByteOp(program, pc);
-            size += pushBytes.size;
-            bytes.addAll(pushBytes.results);
-            break;
-          default:
-            throw AlgorandException(message: 'invalid instruction');
+        final fun = OPCODES_SIZE_FUN[op.opCode];
+        if (fun == null) {
+          throw AlgorandException(message: 'invalid instruction');
         }
+
+        final (intsBlock, bytesBlock) = fun(program, pc);
+        ints.addAll(intsBlock?.results ?? []);
+        size += intsBlock?.size ?? 0;
+        bytes.addAll(bytesBlock?.results ?? []);
+        size += bytesBlock?.size ?? 0;
       }
 
       pc += size;
@@ -118,10 +108,7 @@ class Logic {
       return;
     }
 
-    // Clean up the JSON
-    final json = LANG_SPEC; //.replaceAll('\\"', '\\\\\"');
-
-    final data = jsonDecode(json) as Map<String, dynamic>;
+    final data = jsonDecode(LANG_SPEC) as Map<String, dynamic>;
     langSpec = LangSpec.fromJson(data);
   }
 
@@ -290,128 +277,6 @@ class Logic {
 
     return ByteConstBlock(size, [Uint8List.fromList(buffer)]);
   }
-}
-
-@JsonSerializable()
-class LangSpec {
-  @JsonKey(name: 'Version', defaultValue: 0)
-  final int version;
-
-  @JsonKey(name: 'LogicSigVersion', defaultValue: 0)
-  final int logicSigVersion;
-
-  @JsonKey(name: 'Ops', defaultValue: [])
-  final List<Operation> operations;
-
-  LangSpec({
-    required this.version,
-    required this.logicSigVersion,
-    required this.operations,
-  });
-
-  factory LangSpec.fromJson(Map<String, dynamic> json) =>
-      _$LangSpecFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LangSpecToJson(this);
-}
-
-@JsonSerializable()
-class Operation {
-  @JsonKey(name: 'Opcode')
-  final int opCode;
-
-  @JsonKey(name: 'Name')
-  final String name;
-
-  @JsonKey(
-    name: 'DocCost',
-    fromJson: _costFromDocCost,
-    toJson: _costToDocCost,
-  )
-  final OperationCost opCost;
-
-  @JsonKey(name: 'Size')
-  final int size;
-
-  @JsonKey(name: 'Returns', defaultValue: [])
-  final List<String> returns;
-
-  @JsonKey(name: 'ArgEnum', defaultValue: [])
-  final List<String> argEnum;
-
-  @JsonKey(name: 'ArgEnumTypes')
-  final List<String>? argEnumTypes;
-
-  @JsonKey(name: 'Doc')
-  final String? doc;
-
-  @JsonKey(name: 'ImmediateNote')
-  final List<ImmediateNote>? immediateNote;
-
-  @JsonKey(name: 'Group', defaultValue: [])
-  final List<String> group;
-
-  Operation({
-    required this.opCode,
-    required this.name,
-    required this.opCost,
-    required this.size,
-    required this.returns,
-    required this.argEnum,
-    required this.argEnumTypes,
-    required this.doc,
-    required this.immediateNote,
-    required this.group,
-  });
-
-  factory Operation.fromJson(Map<String, dynamic> json) =>
-      _$OperationFromJson(json);
-
-  Map<String, dynamic> toJson() => _$OperationToJson(this);
-
-  static OperationCost _costFromDocCost(String docCost) =>
-      OperationCost.fromDocCost(docCost);
-  static String _costToDocCost(OperationCost cost) => cost.docCost;
-}
-
-class OperationCost {
-  final String docCost;
-  final int cost;
-
-  OperationCost(
-    this.docCost,
-    this.cost,
-  );
-
-  factory OperationCost.fromDocCost(String docCost) {
-    var cost = int.tryParse(docCost) ?? 0;
-    return OperationCost(docCost, cost);
-  }
-}
-
-@JsonSerializable()
-class ImmediateNote {
-  @JsonKey(name: 'Comment')
-  String? Comment;
-
-  @JsonKey(name: 'Encoding')
-  String? Encoding;
-
-  @JsonKey(name: 'Name')
-  String? Name;
-
-  @JsonKey(name: 'Reference')
-  String? Reference;
-
-  ImmediateNote(
-    this.Comment,
-    this.Encoding,
-    this.Name,
-    this.Reference,
-  );
-
-  factory ImmediateNote.fromJson(Map<String, dynamic> json) =>
-      _$ImmediateNoteFromJson(json);
 }
 
 class ProgramData {

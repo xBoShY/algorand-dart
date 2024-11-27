@@ -13,7 +13,7 @@ class _AssetService implements AssetService {
   Future<SearchAssetsResponse> searchAssets(
       Map<String, dynamic> queryParameters) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/assets',
       queryParameters: queryParameters,

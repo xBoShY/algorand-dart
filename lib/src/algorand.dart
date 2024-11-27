@@ -431,10 +431,11 @@ class Algorand {
   ///
   /// Throws an [AlgorandException] if there is an HTTP error.
   /// Returns the assets.
-  Future<List<AssetHolding>> getAssetsByAddress(
+  Future<AssetsResponse> getAssetsByAddress(
     String address, {
     int? assetId,
     bool? includeAll,
+    String? nextToken,
     int? perPage,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
@@ -444,6 +445,51 @@ class Algorand {
       address,
       assetId: assetId,
       includeAll: includeAll,
+      nextToken: nextToken,
+      perPage: perPage,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
+
+  Future<AssetResponse> getAssetById(
+    BigInt assetId, {
+    bool? includeAll,
+    String? nextToken,
+    int? perPage,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    return _assetsApi.getAssetById(
+      assetId,
+      includeAll: includeAll,
+      cancelToken: cancelToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
+  }
+
+  /// Get the asset owned of the given address.
+  /// Given a specific account public key and asset this call
+  /// returns the address's asset holdings.
+  ///
+  /// Throws an [AlgorandException] if there is an HTTP error.
+  /// Returns the assets.
+  Future<AccountAssetInformation> getAssetByAddress(
+    String address,
+    BigInt asset, {
+    String? nextToken,
+    int? perPage,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
+    return _accountsApi.getAssetByAddress(
+      address,
+      asset,
+      nextToken: nextToken,
       perPage: perPage,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,

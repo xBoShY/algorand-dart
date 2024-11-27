@@ -13,7 +13,7 @@ class _NodeService implements NodeService {
   Future<String> genesis() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<String>('/genesis',
         queryParameters: queryParameters,
         options: Options(
@@ -30,7 +30,7 @@ class _NodeService implements NodeService {
   Future<void> health() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     await _dio.request<void>('/health',
         queryParameters: queryParameters,
         options: Options(
@@ -46,7 +46,7 @@ class _NodeService implements NodeService {
   Future<NodeStatus> status() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/status',
       queryParameters: queryParameters,
@@ -66,7 +66,7 @@ class _NodeService implements NodeService {
     ArgumentError.checkNotNull(roundId, 'roundId');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/status/wait-for-block-after/$roundId',
       queryParameters: queryParameters,
@@ -85,7 +85,7 @@ class _NodeService implements NodeService {
   Future<LedgerSupply> supply() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/ledger/supply',
       queryParameters: queryParameters,

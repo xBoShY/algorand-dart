@@ -13,7 +13,7 @@ class _AccountService implements AccountService {
   Future<SearchAccountsResponse> searchAccounts(
       Map<String, dynamic> queryParameters) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/accounts',
       queryParameters: queryParameters,
@@ -32,7 +32,7 @@ class _AccountService implements AccountService {
   Future<SearchAccountsResponse> searchAccountsWithBalance(
       int assetId, Map<String, dynamic> queryParameters) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/assets/$assetId/balances',
       queryParameters: queryParameters,

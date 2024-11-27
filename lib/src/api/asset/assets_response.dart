@@ -1,4 +1,5 @@
 import 'package:algorand_dart/src/api/asset/asset.dart';
+import 'package:algorand_dart/src/utils/serializers/serializers.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'assets_response.g.dart';
@@ -9,8 +10,9 @@ class AssetsResponse {
   final List<AssetHolding> assets;
 
   /// Round at which the results were computed.
-  @JsonKey(name: 'current-round', defaultValue: 0)
-  final int currentRound;
+  @JsonKey(name: 'current-round')
+  @BigIntSerializer()
+  final BigInt currentRound;
 
   /// Used for pagination, when making another request provide this token
   /// with the next parameter.

@@ -12,7 +12,7 @@ class _IndexerService implements IndexerService {
   @override
   Future<IndexerHealth> health() async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final queryParameters = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
       '/health',
@@ -33,7 +33,7 @@ class _IndexerService implements IndexerService {
     Map<String, dynamic> queryParameters,
   ) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/transactions',
       queryParameters: queryParameters,
@@ -54,7 +54,7 @@ class _IndexerService implements IndexerService {
     Map<String, dynamic> queryParameters,
   ) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/accounts/$accountId/transactions',
       queryParameters: queryParameters,
@@ -75,7 +75,7 @@ class _IndexerService implements IndexerService {
     Map<String, dynamic> queryParameters,
   ) async {
     const _extra = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/assets/$assetId/transactions',
       queryParameters: queryParameters,
@@ -95,7 +95,7 @@ class _IndexerService implements IndexerService {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.request<Map<String, dynamic>>(
       '/v2/transactions/$transactionId',
       queryParameters: queryParameters,

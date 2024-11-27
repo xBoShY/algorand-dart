@@ -27,7 +27,7 @@ class AlgorandOptions {
     bool mainnet = false,
     Duration connectTimeout = const Duration(seconds: 30),
     Duration receiveTimeout = const Duration(seconds: 30),
-    Duration sendTimeout = const Duration(seconds: 30),
+    Duration? sendTimeout,
     int timeout = 5,
     bool debug = false,
     bool enableGzip = true,

@@ -10,7 +10,7 @@ abstract class AssetIndexerService {
 
   @GET('/v2/assets/{assetId}')
   Future<AssetResponse> getAssetById({
-    @Path('assetId') required int assetId,
+    @Path('assetId') required BigInt assetId,
     @Query('include-all') bool? includeAll,
     @CancelRequest() CancelToken? cancelToken,
     @SendProgress() ProgressCallback? onSendProgress,

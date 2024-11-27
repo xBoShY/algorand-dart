@@ -74,7 +74,7 @@ Future findAssetById({
   required Algorand algorand,
   required Account account,
 }) async {
-  final response = await algorand.indexer().getAssetById(408947);
+  final response = await algorand.indexer().getAssetById(BigInt.from(408947));
   print(response.toJson());
 }
 

@@ -23,7 +23,7 @@ class AssetsIndexerApi {
   /// Throws an [AlgorandException] if there is an HTTP error.
   /// Returns the asset information for the given asset id.
   Future<AssetResponse> getAssetById(
-    int assetId, {
+    BigInt assetId, {
     bool? includeAll,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
@@ -44,31 +44,25 @@ class AssetsIndexerApi {
   ///
   /// Throws an [AlgorandException] if there is an HTTP error.
   /// Returns the assets information for the given account id.
-  Future<List<AssetHolding>> getAssetsByAddress(
+  Future<AssetsResponse> getAssetsByAddress(
     String address, {
     int? assetId,
     bool? includeAll,
     int? perPage,
+    String? nextToken,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    return _api.paginate<AssetHolding>((nextToken) async {
-      final response = await _service.getAssetsByAccount(
-        address: address,
-        assetId: assetId,
-        includeAll: includeAll,
-        limit: perPage,
-        next: nextToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress,
-      );
-
-      return PaginatedResult(
-        nextToken: response.nextToken,
-        items: response.assets,
-      );
-    });
+    return await _service.getAssetsByAccount(
+      address: address,
+      assetId: assetId,
+      includeAll: includeAll,
+      limit: perPage,
+      next: nextToken,
+      onSendProgress: onSendProgress,
+      onReceiveProgress: onReceiveProgress,
+    );
   }
 
   /// Get the assets created by the given account.

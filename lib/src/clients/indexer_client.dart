@@ -16,7 +16,7 @@ class IndexerClient extends AlgorandClient {
     String tokenKey = INDEXER_API_TOKEN,
     Duration connectTimeout = const Duration(seconds: 30),
     Duration receiveTimeout = const Duration(seconds: 30),
-    Duration sendTimeout = const Duration(seconds: 30),
+    Duration? sendTimeout,
     bool debug = false,
     bool enableGzip = true,
     Interceptor? logInterceptor,

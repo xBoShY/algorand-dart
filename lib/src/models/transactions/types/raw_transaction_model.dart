@@ -24,7 +24,7 @@ part 'raw_transaction_model.g.dart';
 ///  4. Every positive number must be encoded as uint
 ///  5. Binary blob should be used for binary data and string for strings
 @JsonSerializable(fieldRename: FieldRename.kebab)
-class RawTransaction extends Equatable {
+class RawTransaction with EquatableMixin {
   /// The prefix for a transaction.
   static const TX_PREFIX = 'TX';
 

@@ -8,7 +8,7 @@ void main() async {
 
   try {
     final transactions = await algorand.indexer().getAssetById(
-          408947,
+          BigInt.from(408947),
           includeAll: false,
         );
     print(transactions);

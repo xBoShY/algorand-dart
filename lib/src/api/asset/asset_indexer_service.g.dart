@@ -20,7 +20,7 @@ class _AssetIndexerService implements AssetIndexerService {
 
   @override
   Future<AssetResponse> getAssetById({
-    required int assetId,
+    required BigInt assetId,
     bool? includeAll,
     CancelToken? cancelToken,
     void Function(int, int)? onSendProgress,

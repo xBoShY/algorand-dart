@@ -138,7 +138,7 @@ class AlgorandIndexer {
   /// Throws an [AlgorandException] if there is an HTTP error.
   /// Returns the asset information for the given asset id.
   Future<AssetResponse> getAssetById(
-    int assetId, {
+    BigInt assetId, {
     bool? includeAll,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,

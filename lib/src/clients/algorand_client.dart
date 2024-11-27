@@ -10,7 +10,7 @@ abstract class AlgorandClient {
     required String tokenKey,
     Duration connectTimeout = const Duration(seconds: 30),
     Duration receiveTimeout = const Duration(seconds: 30),
-    Duration sendTimeout = const Duration(seconds: 30),
+    Duration? sendTimeout,
     bool debug = false,
     bool enableGzip = true,
     Interceptor? logInterceptor,

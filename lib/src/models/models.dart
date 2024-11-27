@@ -1,4 +1,5 @@
 export 'accounts/account_model.dart';
+export 'accounts/multisig_model.dart';
 export 'addresses/address_model.dart';
 export 'addresses/address_role.dart';
 export 'keys/merkle_signature_verifier.dart';

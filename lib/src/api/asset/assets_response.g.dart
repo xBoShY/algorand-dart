@@ -12,13 +12,13 @@ AssetsResponse _$AssetsResponseFromJson(Map<String, dynamic> json) =>
               ?.map((e) => AssetHolding.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
-      currentRound: (json['current-round'] as num?)?.toInt() ?? 0,
+      currentRound: const BigIntSerializer().fromJson(json['current-round']),
       nextToken: json['next-token'] as String?,
     );
 
 Map<String, dynamic> _$AssetsResponseToJson(AssetsResponse instance) =>
     <String, dynamic>{
       'assets': instance.assets,
-      'current-round': instance.currentRound,
+      'current-round': const BigIntSerializer().toJson(instance.currentRound),
       'next-token': instance.nextToken,
     };

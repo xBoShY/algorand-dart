@@ -10,8 +10,9 @@ class AssetHolding {
   @BigIntSerializer()
   final BigInt amount;
 
-  /// Asset ID of the holding.
-  final int assetId;
+  @JsonKey(name: 'asset-id')
+  @BigIntSerializer()
+  final BigInt assetId;
 
   /// Address that created this asset.
   ///
@@ -24,6 +25,7 @@ class AssetHolding {
   final bool? deleted;
 
   /// Wether or not the holding is frozen.
+  @JsonKey(name: 'is-frozen')
   final bool isFrozen;
 
   /// Round during which the account opted into this asset holding.
@@ -41,6 +43,15 @@ class AssetHolding {
     this.optedInAtRound,
     this.optedOutAtRound,
   });
+
+  factory AssetHolding.empty() {
+    return AssetHolding(
+      amount: BigInt.from(0),
+      assetId: BigInt.from(0),
+      creator: null,
+      isFrozen: false,
+    );
+  }
 
   factory AssetHolding.fromJson(Map<String, dynamic> json) =>
       _$AssetHoldingFromJson(json);

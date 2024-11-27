@@ -14,7 +14,7 @@ class AlgodClient extends AlgorandClient {
     String tokenKey = ALGOD_API_TOKEN,
     Duration connectTimeout = const Duration(seconds: 30),
     Duration receiveTimeout = const Duration(seconds: 30),
-    Duration sendTimeout = const Duration(seconds: 30),
+    Duration? sendTimeout,
     bool debug = false,
     bool enableGzip = true,
     Interceptor? logInterceptor,
