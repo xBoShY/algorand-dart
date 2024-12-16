@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:algorand_dart/src/abi/transaction_signer.dart';
 import 'package:algorand_dart/src/api/application/application.dart';
 import 'package:algorand_dart/src/crypto/crypto.dart';
 import 'package:algorand_dart/src/exceptions/exceptions.dart';
@@ -29,7 +30,7 @@ part 'logic_signature.g.dart';
 /// https://developer.algorand.org/docs/features/asc1/stateless/sdks/
 
 @JsonSerializable(fieldRename: FieldRename.kebab)
-class LogicSignature extends Equatable implements MessagePackable {
+class LogicSignature extends Equatable implements MessagePackable, TxnSigner {
   static const LOGIC_PREFIX = 'Program';
 
   @JsonKey(name: 'l')
@@ -233,6 +234,23 @@ class LogicSignature extends Equatable implements MessagePackable {
     );
 
     return signedTransaction;
+  }
+
+  @override
+  Future<List<SignedTransaction>> signTransactions(
+    List<RawTransaction> transactions,
+    List<int> indicesToSign,
+  ) async {
+    final signedTxns = <SignedTransaction>[];
+    for (var i = 0; i < indicesToSign.length; i++) {
+      final txn = transactions[indicesToSign[i]];
+      final signedTxn = await signTransaction(
+        transaction: txn,
+      );
+      signedTxns.add(signedTxn);
+    }
+
+    return signedTxns;
   }
 
   /// Appends a signature to multisig logic signed transaction
